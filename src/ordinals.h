@@ -1,5 +1,5 @@
-#ifndef MY_CLASS_H // include guard
-#define MY_CLASS_H
+#ifndef ORDINALS_H // include guard
+#define ORDINALS_H
 
 #include<iostream>
 #include<vector>
@@ -21,4 +21,4 @@ namespace ordinals {
     }
 }
 
-#endif /* MY_CLASS_H */
+#endif /* ORDINALS_H */
