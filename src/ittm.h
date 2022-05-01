@@ -11,20 +11,20 @@ namespace ITTM {
     class TransitionRule {
         public:
             int currentState;           // -1 = limit, 0 = initial state
-            std::string currentCell;
-            std::string newContent;
+            char currentCell;
+            char newContent;
             int moveDirection;          // -1 = left, 0 = don't move, 2 = right
             int nextState;
 
             // Setter
-            void setVals_TR(int, std::string, std::string, int, int);
+            void setVals_TR(int, char, char, int, int);
     }
 
     // ITTM
     class ITTM {
         public:
             std::vector<TransitionRule> ITTMRuleset;                        // Ruleset for the ITTM
-            std::vector<std::string> getTapeAtStep(ordinals::CantorNF);
+            std::vector<char> getTapeAtStep(ordinals::CantorNF);
             int getStateAtStep(ordinals::CantorNF);
     }
 }
