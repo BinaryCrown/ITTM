@@ -24,8 +24,12 @@ namespace ITTM {
     class ITTM {
         public:
             std::vector<TransitionRule> ITTMRuleset;                // Ruleset for the ITTM
+            std::vector<char> initialTape;
             std::vector<char> getTapeAtStep(ordinals::CantorNF);
             int getStateAtStep(ordinals::CantorNF);
+
+            // Setter
+            void setVals_ITTM(std::vector<TransitionRule>, std::vector<char>);
     }
 }
 
