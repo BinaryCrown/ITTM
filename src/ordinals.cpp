@@ -8,7 +8,7 @@ bool operator==(const CantorNF& lhs, const CantorNF& rhs) {
     return (lhs.coefficients == rhs.coefficients) && (lhs.exponents == rhs.coefficients);
 }
 
-void CantorNF::setVals(vector<int> coefficients, vector<CantorNF> exponents) {
+void CantorNF::setVals_CNF(vector<int> coefficients, vector<CantorNF> exponents) {
     this->coefficients = coefficients;
     this->exponents = exponents;
 }
@@ -21,9 +21,9 @@ bool CantorNF::lt(const CantorNF& rhs) {
     (rhs.coefficients).erase((rhs.coefficients).begin());
     (rhs.exponents).erase((rhs.exponents).begin());
     CantorNF NextPartLHS;
-    NextPartLHS.setVals(this->coefficients, this->exponents);
+    NextPartLHS.setVals_CNF(this->coefficients, this->exponents);
     CantorNF NextPartRHS;
-    NextPartRHS.setVals(rhs.coefficients, rhs.exponents);
+    NextPartRHS.setVals_CNF(rhs.coefficients, rhs.exponents);
     NPB = lt(rhs);
     return FEB || FCB || NPB;
 }
