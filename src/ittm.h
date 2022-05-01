@@ -27,6 +27,7 @@ namespace ITTM {
             std::vector<char> initialTape;
             std::vector<char> getTapeAtStep(ordinals::CantorNF);
             int getStateAtStep(ordinals::CantorNF);
+            int getReadHeadPosAtStep(ordinals::CantorNF);
 
             // Setter
             void setVals_ITTM(std::vector<TransitionRule>, std::vector<char>);

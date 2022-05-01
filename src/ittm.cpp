@@ -22,6 +22,76 @@ void setVals_ITTM(std::vector<TransitionRule> ITTMRuleset, std::vector<char> ini
     if (ITTMRuleset.size == 0) {
         throw std::invalid_argument("Received empty ITTM ruleset.")
     }
+    // Make sure no rules activate simultaneously
+    std::vector<int> activationSteps;
     this->ITTMRuleset = ITTMRuleset;
     this->initialTape = initialTape;
+}
+
+std::vector<char> ITTM::getTapeAtStep(ordinals::CantorNF step) {
+    if (!step.std()) {
+        throw std::invalid_argument("Received nonstandard CNF.");
+    }
+    if (step.coefficients.size == 0) {
+        return this->initialTape;
+    }
+    if (isLim(step)) {
+        // Find bitwise limsup
+    }
+    else {
+        std::vector<char> previousTape = getStateAtStep(step.fundamentalSeq(0));
+        int previousState = this.getStateAtStep(step.fundamentalSeq(0));
+        int previousSymbol = previousTape[getReadHeadPosAtStep(step.fundamentalSeq(0))];
+        for (unsigned i = 0; i < (this->ITTMRuleset).size; i++) {
+            if ((this->ITTMRuleset)[i].currentState == previousState && (this->ITTMRuleset)[i].currentCell == previousSymbol) {
+                break;
+            }
+            // Make sure it doesn't count the last ruleset by default
+            if (i+1 == (this->ITTMRuleset).size) {
+                throw std::invalid_argument("No transition rule available.")
+            }
+        }
+        std::vector<char> newTape = previousTape;
+        newTape[getReadHeadPosAtStep(step.fundamentalSeq(0))] == (this->ITTMRuleset)[i].newContent;
+        return newTape;
+    }
+}
+
+int ITTM::getStateAtStep(ordinals::CantorNF step) {
+    if (!step.std()) {
+        throw std::invalid_argument("Received nonstandard CNF.");
+    }
+    if (step.coefficients.size == 0) {return 0;}
+    if (isLim(step)) {return -1;}
+    else {
+        int previousState = this.getStateAtStep(step.fundamentalSeq(0));
+        int previousSymbol = currentTape[getReadHeadPosAtStep(step.fundamentalSeq(0))];
+        int previousState = this.getStateAtStep(step.fundamentalSeq(0));
+        for (unsigned i = 0; i < (this->ITTMRuleset).size; i++) {
+            if ((this->ITTMRuleset)[i].currentState == previousState && (this->ITTMRuleset)[i].currentCell == previousSymbol) {
+                break;
+            }
+        }
+        return (this->ITTMRuleset)[i].nextState;
+    }
+}
+
+int ITTM::getReadHeadPosAtStep(ordinals::CantorNF step) {
+    if (!step.std()) {
+        throw std::invalid_argument("Received nonstandard CNF.");
+    }
+    if (step.coefficients.size == 0) {return 0;}
+    if (isLim(step)) {return 0;}
+    else {
+        std::vector<char> previousTape = getStateAtStep(step.fundamentalSeq(0));
+        int previousPos = getReadHeadPosAtStep(step.fundamentalSeq(0));
+        int previousState = this.getStateAtStep(step.fundamentalSeq(0));
+        int previousSymbol = previousTape[previousPos];
+        for (unsigned i = 0; i < (this->ITTMRuleset).size; i++) {
+            if ((this->ITTMRuleset)[i].currentState == previousState && (this->ITTMRuleset)[i].currentCell == previousSymbol) {
+                break;
+            }
+        }
+        return previousPos + (this->ITTMRuleset)[i].moveDirection;
+    }
 }
