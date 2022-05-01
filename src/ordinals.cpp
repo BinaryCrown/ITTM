@@ -58,7 +58,7 @@ bool CantorNF::isLim() {
     return ((this->exponents)[(this->exponents).size-1]).exponents.size > 0;
 }
 
-bool CantorNF::fundamentalSeq(int ent) {
+CantorNF CantorNF::fundamentalSeq(int ent) {
     if (!std()) {
         throw std::invalid_argument("Received nonstandard CNF.");
     }
