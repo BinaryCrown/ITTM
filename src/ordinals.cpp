@@ -38,10 +38,19 @@ bool CantorNF::std() {
     for (unsigned i = 0; i < (this->coefficients).size; i++) {
         if ((this->coefficients)[i] == 0) {NONZ = false;}
     }
+    // Make sure each exponent is itself standard
+    bool RECS;
+    for (unsigned j = 0; j < (this->exponents).size; j++) {
+        if (!((this->exponents)[j].std())) {RECS = false;}
+    }
     if ((this->coefficients).size > 1) {
         // Make sure each consecutive exponent is > the previous one
         bool DESC = sort((this->exponents).begin(), (this->exponents).end(), comp) == this->exponents;
-        return ((this->coefficients).size == (this->exponents).size) && DESC && NONZ;
+        return ((this->coefficients).size == (this->exponents).size) && DESC && NONZ && RECS;
     }
-    return ((this->coefficients).size == (this->exponents).size) && NONZ;
+    return ((this->coefficients).size == (this->exponents).size) && NONZ && RECS;
+}
+
+bool CantorNF::isLim() {
+    return ((this->exponents)[(this->exponents).size-1]).exponents.size > 0;
 }

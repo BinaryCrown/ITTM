@@ -14,6 +14,7 @@ namespace ordinals {
             vector<int> coefficients;  
             vector<CantorNF> exponents;
             bool std();
+            bool isLim();
             bool lt(const CantorNF&);
             
             // Setter
