@@ -1,6 +1,7 @@
 #ifndef ITTM_H // include guard
 #define ITTM_H
 
+#include "ordinals.h"
 #include<iostream>
 #include<vector>
 #include<string>
@@ -17,6 +18,14 @@ namespace ITTM {
 
             // Setter
             void setVals_TR(int, std::string, std::string, int, int);
+    }
+
+    // ITTM
+    class ITTM {
+        public:
+            std::vector<TransitionRule> ITTMRuleset;                        // Ruleset for the ITTM
+            std::vector<std::string> getTapeAtStep(ordinals::CantorNF);
+            int getStateAtStep(ordinals::CantorNF);
     }
 }
 
