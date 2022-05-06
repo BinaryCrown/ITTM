@@ -78,6 +78,9 @@ int ITTM::getStateAtStep(ordinals::CantorNF step) {
             if ((this->ITTMRuleset)[i].currentState == previousState && (this->ITTMRuleset)[i].currentCell == previousSymbol) {
                 break;
             }
+            if (i+1 == (this->ITTMRuleset).size) {
+                throw std::invalid_argument("No transition rule available.")
+            }
         }
         return (this->ITTMRuleset)[i].nextState;
     }
@@ -97,6 +100,9 @@ int ITTM::getReadHeadPosAtStep(ordinals::CantorNF step) {
         for (unsigned i = 0; i < (this->ITTMRuleset).size; i++) {
             if ((this->ITTMRuleset)[i].currentState == previousState && (this->ITTMRuleset)[i].currentCell == previousSymbol) {
                 break;
+            }
+            if (i+1 == (this->ITTMRuleset).size) {
+                throw std::invalid_argument("No transition rule available.")
             }
         }
         return previousPos + (this->ITTMRuleset)[i].moveDirection;
