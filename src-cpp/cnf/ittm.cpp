@@ -52,6 +52,7 @@ std::vector<char> ITTM::getTapeAtStep(ordinals::CantorNF step, unsigned maxCount
             newTape[i] = "_";
             for (unsigned j = 0; j < maxCount; j++) {
                 if getTapeAtStep(step[i], maxCount)
+                // ...
             }
         }
     }
