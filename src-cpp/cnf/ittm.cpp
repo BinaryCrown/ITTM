@@ -32,7 +32,7 @@ void ITTM::setVals_ITTM(std::vector<TransitionRule> ITTMRuleset, std::vector<cha
     this->initialTape = initialTape;
 }
 
-std::vector<char> ITTM::getTapeAtStep(ordinals::CantorNF step) {
+std::vector<char> ITTM::getTapeAtStep(ordinals::CantorNF step, unsigned maxCount) {
     if (!step.std()) {
         throw std::invalid_argument("Received nonstandard CNF.");
     }
@@ -40,10 +40,23 @@ std::vector<char> ITTM::getTapeAtStep(ordinals::CantorNF step) {
         return this->initialTape;
     }
     if (isLim(step)) {
-        // Find bitwise limsup
+        int maxPrevLen = 0;
+        for (unsigned i = 0; i <= maxCount; i++) {
+            if (getTapeAtStep(step[i], maxCount).size() > maxPrevLen) {
+                maxPrevLen = getTapeAtStep(step.fundamentalSeq(i), maxCount).size();
+            }
+        }
+        std::vector<char> newTape;
+        for (unsigned i = 0; i < maxPrevLen; i++) {
+            // Set ith element of tape to bitwise limsup of ith element of previous tapes
+            newTape[i] = "_";
+            for (unsigned j = 0; j < maxCount; j++) {
+                if getTapeAtStep(step[i], maxCount)
+            }
+        }
     }
     else {
-        std::vector<char> previousTape = getStateAtStep(step.fundamentalSeq(0));
+        std::vector<char> previousTape = getTapeAtStep(step.fundamentalSeq(0), maxCount);
         int previousState = this.getStateAtStep(step.fundamentalSeq(0));
         int previousSymbol = getTapeEnt(previousTape, getReadHeadPosAtStep(step.fundamentalSeq(0)))
         for (unsigned i = 0; i < (this->ITTMRuleset).size; i++) {
