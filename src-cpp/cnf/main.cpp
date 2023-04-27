@@ -48,6 +48,8 @@ int main() {
             return 0
         case "nO":
             return 0
+        default:
+            return 1
     }
     cout "\n Beginning simulation..."
     return 0;
